@@ -5,12 +5,11 @@
 # Ubuntu 16.04 LTS
 # gcc 5.4.0
 # Matlab R2015b
-# Optional: CUDA 7.5 (installed via apt-get install nvidia-cuda-toolkit), cuDNN-v5, NVIDIA GTX 980 Ti
 # MatConvNet
 # VLFeat
-# 64GB RAM
-# NVIDIA GTX 980 Ti
+# 32GB RAM
 # Xeon CPU E5-2620 v3 @ 2.40GHz
+# Optional: CUDA 7.5 (installed via apt-get install nvidia-cuda-toolkit), cuDNN-v5, NVIDIA GTX 980 Ti
 
 #------------------------------
 # Set your data folders and paths here
@@ -77,9 +76,9 @@ $MATLAB -nodisplay -nosplash -nodesktop -nojvm -r "run('liblinear/matlab/make.m'
 git clone https://github.com/bknyaz/autocnn_unsup
 ## ICV data processing
 git clone https://github.com/bknyaz/icv_emotion_challenge
-cp icv_emotion_challenge/icv.m autocnn_unsup/experiments/
-cp icv_emotion_challenge/autocnn_icv.m autocnn_unsup/
-cp icv_emotion_challenge/autocnn_prediction.m autocnn_unsup/
+cp icv_emotion_challenge/solution1/icv.m autocnn_unsup/experiments/
+cp icv_emotion_challenge/solution1/autocnn_icv.m autocnn_unsup/
+cp icv_emotion_challenge/solution1/autocnn_prediction.m autocnn_unsup/
 
 # Train a model in Matlab and save predictions
 ## Set the number of threads equal to the number of physical cores
