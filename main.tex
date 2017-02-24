@@ -1,0 +1,146 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+\title{Emotion challenge fact sheet}
+\author{iCV}
+\date{February 2017}
+
+\begin{document}
+
+\maketitle
+
+\section{Team details}
+
+\begin{itemize}
+\item Team name: bknyaz                                  
+\item Team leader name: Boris Knyazev                           
+\item Team leader address, phone number and email: 
+
+Moscow, Russia
+
+\texttt{8e8all@gmail.com}, \texttt{borknyaz@gmail.com}
+
+\item Rest of the team members: None                    
+\item Team website URL (if any): \url{https://github.com/bknyaz}
+\item Affiliation: NTechLab
+\end{itemize}
+
+\section{Contribution details}
+
+\begin{itemize}
+\item Title of the contribution: Simple unsupervised learning method
+\item Final score: 86.77\%                                              
+\item General method description: This result is obtained based on the model described in [1]. The model is a convolutional neural network, filters of which are trained layer-wise using k-means clustering, that is without backpropagation. Recursive autoconvolution applied to image patches before k-means improves results. A linear SVM is applied on top of extracted features. In this challenge, a committee of 5 simple models with a single convolutional layer of 512 filters turned out to work well.
+\item References
+
+[1] B. Knyazev, E. Barth and Thomas Martinetz, "Recursive Autoconvolution for Unsupervised Learning of Convolutional Neural Networks", accepted to IJCNN-2017
+\item Representative image / diagram of the method        
+\item Describe data preprocessing techniques applied (if any): faces are extracted and aligned using dlib (\url{https://github.com/davisking/dlib})
+\end{itemize}
+
+
+\section{Face Landmarks Detection}
+\subsection{Features / Data representation}
+Describe features used or data representation model FOR FACE LANDMARKS DETECTION (if any)
+
+Face Landmarks are extracted by dlib, they are used to align faces
+
+\subsection{Dimensionality reduction}
+Dimensionality reduction technique applied FOR FACE LANDMARKS DETECTION (if any)
+
+\subsection{Compositional model}
+Compositional model used, i.e. pictorial structure FOR FACE LANDMARKS DETECTION (if any)
+
+\subsection{Learning strategy}
+Learning strategy applied FOR FACE LANDMARKS DETECTION (if any)
+
+Publicly available Face Landmarks model is used: available at \url{http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2}.
+
+\subsection{Other techniques}
+Other technique/strategy used not included in previous items FOR FACE LANDMARKS DETECTION (if any)
+
+\subsection{Method complexity}
+Method complexity FOR FACE LANDMARKS DETECTION
+
+
+\section{Dominant emotion recognition}
+\subsection{Features / Data representation}
+Describe features used or data representation model FOR DOMINANT EMOTION RECOGNITION (if any)
+
+\subsection{Dimensionality reduction}
+Dimensionality reduction technique applied FOR DOMINANT EMOTION RECOGNITION (if any)
+
+\subsection{Compositional model}
+Compositional model used, i.e. pictorial structure FOR DOMINANT EMOTION RECOGNITION (if any)
+
+\subsection{Learning strategy}
+Learning strategy applied FOR DOMINANT EMOTION RECOGNITION (if any)
+
+\subsection{Other techniques}
+Other technique/strategy used not included in previous items FOR DOMINANT EMOTION RECOGNITION (if any)
+
+\subsection{Method complexity}
+Method complexity FOR DOMINANT EMOTION RECOGNITION
+
+
+\section{Complementary emotion recognition}
+\subsection{Features / Data representation}
+Describe features used or data representation model FOR COMPLEMENTARY EMOTION RECOGNITION (if any)
+
+\subsection{Dimensionality reduction}
+Dimensionality reduction technique applied FOR COMPLEMENTARY EMOTION RECOGNITION (if any)
+
+\subsection{Compositional model}
+Compositional model used, i.e. pictorial structure FOR COMPLEMENTARY EMOTION RECOGNITION (if any)
+
+\subsection{Learning strategy}
+Learning strategy applied FOR COMPLEMENTARY EMOTION RECOGNITION (if any)
+
+\subsection{Other techniques}
+Other technique/strategy used not included in previous items FOR COMPLEMENTARY EMOTION RECOGNITION (if any)
+
+\subsection{Method complexity}
+Method complexity FOR COMPLEMENTARY EMOTION RECOGNITION
+
+
+\section{Joint dominant and complementary emotion recognition}
+\subsection{Features / Data representation}
+Describe features used or data representation model FOR JOINT DOMINANT AND COMPLEMENTARY EMOTION RECOGNITION (if any)
+
+\subsection{Dimensionality reduction}
+Dimensionality reduction technique applied FOR JOINT DOMINANT AND COMPLEMENTARY EMOTION RECOGNITION (if any)
+
+\subsection{Compositional model}
+Compositional model used, i.e. pictorial structure FOR JOINT DOMINANT AND COMPLEMENTARY EMOTION RECOGNITION (if any)
+
+\subsection{Learning strategy}
+Learning strategy applied FOR JOINT DOMINANT AND COMPLEMENTARY EMOTION RECOGNITION (if any)
+
+\subsection{Other techniques}
+Other technique/strategy used not included in previous items FOR JOINT DOMINANT AND COMPLEMENTARY EMOTION RECOGNITION (if any)
+
+\subsection{Method complexity}
+Method complexity FOR JOINT DOMINANT AND COMPLEMENTARY EMOTION RECOGNITION
+
+
+\section{Global Method Description}
+
+\begin{itemize}
+\item Total method complexity: all stages
+\item Which pre-trained or external methods have been used (for any stage, if any) 
+\item Which additional data has been used in addition to the provided training and validation data (at any stage, if any) 
+\item Qualitative advantages of the proposed solution
+\item Results of the comparison to other approaches (if any)
+\item Novelty degree of the solution and if is has been previously published
+\end{itemize}
+
+\section{Other details}
+
+\begin{itemize}
+\item Language and implementation details (including platform, memory, parallelization requirements)
+\item Detailed list of prerequisites for compilation
+\item Human effort required for implementation, training and validation?
+\item Training/testing expended time? 
+\item General comments and impressions of the challenge?
+\end{itemize}
+\end{document}
