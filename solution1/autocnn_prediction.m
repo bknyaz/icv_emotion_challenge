@@ -1,4 +1,4 @@
-function test_results = prediction(data_test, net, opts, model)
+function test_results = autocnn_prediction(data_test, net, opts, model)
 fprintf('setting up GPU and %s \n', upper('dependencies'))
 [net, opts] = set_up(net, opts); % check GPU, dependencies and add paths
 net.layers{1}.flip = false;

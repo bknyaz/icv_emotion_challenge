@@ -101,9 +101,9 @@ else
     test_img_list = fullfile(opts.dataDir,'order_of_validation.txt');  
 end
     
-if exist(fullfile(opts.dataDir,'train.mat'),'file') && exist(fullfile(opts.dataDir,'test.mat'),'file')
-    data_train = load(fullfile(opts.dataDir,'train'));
-    data_test = load(fullfile(opts.dataDir,'test'));
+if exist(fullfile(opts.dataDir,'train_96.mat'),'file') && exist(fullfile(opts.dataDir,'val_96.mat'),'file')
+    data_train = load(fullfile(opts.dataDir,'train_96'));
+    data_test = load(fullfile(opts.dataDir,'val_96'));
 else
     fid = fopen(training_img_list);
     files_ordered = textscan(fid,'%s','Delimiter','\n');  
@@ -140,8 +140,8 @@ else
     data_test.labels = labels(ismember(users,users_val))';
     data_test.users = users_val';
     assert(size(data_train.images,1)+size(data_test.images,1) == size(images,1))
-    save(fullfile(opts.dataDir,'train'),'-struct','data_train','-v7.3')
-    save(fullfile(opts.dataDir,'test'),'-struct','data_test','-v7.3')
+    save(fullfile(opts.dataDir,'train_96'),'-struct','data_train','-v7.3')
+    save(fullfile(opts.dataDir,'val_96'),'-struct','data_test','-v7.3')
 end
 
 data_train.images = single(data_train.images)./255;
@@ -150,8 +150,8 @@ data_test.images = single(data_test.images)./255 % print test (val) data
 data_train.unlabeled_images = data_train.images;
 data_train.unlabeled_images_whitened = data_train.images % print train data
 
-if exist(fullfile(opts.dataDir,'submit.mat'),'file')
-    data_submit = load(fullfile(opts.dataDir,'submit'));
+if exist(fullfile(opts.dataDir,'test_96.mat'),'file')
+    data_submit = load(fullfile(opts.dataDir,'test_96'));
 else
     fid = fopen(test_img_list);
     files_ordered = textscan(fid,'%s','Delimiter','\n');  
@@ -173,7 +173,7 @@ else
     data_submit.images = reshape(images, [], size(images,4))';
     data_submit.labels = labels';
     data_submit.users = unique(users)';
-    save(fullfile(opts.dataDir,'submit'),'-struct','data_submit','-v7.3')
+    save(fullfile(opts.dataDir,'test_96'),'-struct','data_submit','-v7.3')
 end
 data_submit.images = single(data_submit.images)./255  % print submission data
 
