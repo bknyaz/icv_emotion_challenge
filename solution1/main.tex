@@ -20,7 +20,7 @@ Moscow, Russia
 
 \texttt{8e8all@gmail.com}, \texttt{borknyaz@gmail.com}
 
-\item Rest of the team members: None                    
+\item Rest of the team members: none                    
 \item Team website URL (if any): \url{https://github.com/bknyaz}
 \item Affiliation: NTechLab
 \end{itemize}
@@ -56,7 +56,7 @@ Face Landmarks are extracted by dlib, they are used to align faces.
 \subsection{Learning strategy}
 %Learning strategy applied FOR FACE LANDMARKS DETECTION (if any)
 
-Publicly available Face Landmarks model is used: available at \url{http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2}.
+A publicly available Face Landmarks model is used: \url{http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2}.
 
 \subsection{Other techniques}
 %Other technique/strategy used not included in previous items FOR FACE LANDMARKS DETECTION (if any)
@@ -67,7 +67,7 @@ Publicly available Face Landmarks model is used: available at \url{http://dlib.n
 
 \section{Dominant emotion recognition}
 
-I treat all 50 emotions as independent (i.e. each image has one of the labels 0-49), so prior knowledge that there are dominant and complementary emotions were not used.
+I treat all 50 emotions as independent (i.e. each image has one of the labels 0-49), so prior knowledge that there are dominant and complementary emotions was ignored.
 I chose this approach, because: 
 
 1) it's the most straightforward solution;
@@ -116,7 +116,7 @@ I chose this approach, because:
 \section{Joint dominant and complementary emotion recognition}
 \subsection{Features / Data representation}
 %Describe features used or data representation model FOR JOINT DOMINANT AND COMPLEMENTARY EMOTION RECOGNITION (if any)
-Features are extracted using a single layer convolutional network consisting of a batch-norm layer, convolutional layer with 512 filters, max-pooling, ReLU rectifier, rootsift normalization. The input to the network is a $96\times96\times3$ aligned face image, max-pooling is performed for $16\times16$ non-overlapping regions, so that the feature vector is $6\times6\times512=18432$ dimensional.
+Features are extracted using a single layer convolutional network consisting of a batch-norm layer, convolutional layer with 512 filters, max-pooling, a ReLU rectifier, rootsift normalization. The input to the network is a $96\times96\times3$ aligned face image, max-pooling is performed for $16\times16$ non-overlapping regions, so that the feature vector is $6\times6\times512=18432$ dimensional.
 Filters are trained with $k$-means and recursive autoconvolution orders 1-3.
 
 \subsection{Dimensionality reduction}
@@ -128,6 +128,8 @@ Filters are trained with $k$-means and recursive autoconvolution orders 1-3.
 \subsection{Learning strategy}
 Data augmentation in the form of horizontal flipping is applied both for training and test samples, so that there are two times more images than provided.
 A linear SVM is trained on features extracted from samples.
+
+A committee of 5 models is trained and the final predictions are obtained by averaging SVM scores.
 %Learning strategy applied FOR JOINT DOMINANT AND COMPLEMENTARY EMOTION RECOGNITION (if any)
 
 \subsection{Other techniques}
@@ -140,12 +142,18 @@ A linear SVM is trained on features extracted from samples.
 \section{Global Method Description}
 
 \begin{itemize}
-\item Total method complexity: \textbf{unknown}
-\item Which pre-trained or external methods have been used (for any stage, if any): \textbf{none}
+\item Total method complexity: 
+
+3 hours face extraction, 1 hour model training
+
+\item Which pre-trained or external methods have been used (for any stage, if any): 
+
+dlib shape model to find Face Landmarks and align faces.
+
 \item Which additional data has been used in addition to the provided training and validation data (at any stage, if any): \textbf{none} 
 \item Qualitative advantages of the proposed solution: 
 
-- no external data and no pre-trained models are used, 
+- no external data and no pre-trained models are used other than the dlib shape model, 
 
 - training can be performed relatively fast,
 
@@ -153,7 +161,7 @@ A linear SVM is trained on features extracted from samples.
 
 \item Results of the comparison to other approaches (if any): \textbf{none}
 
-\item Novelty degree of the solution and if is has been previously published: the paper describing the model is accepted to IJCNN-2017.
+\item Novelty degree of the solution and if is has been previously published: the paper describing the model is accepted to IJCNN-2017 [1].
 \end{itemize}
 
 \section{Other details}

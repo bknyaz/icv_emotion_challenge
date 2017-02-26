@@ -84,15 +84,16 @@ cp icv_emotion_challenge/solution1/autocnn_icv.m autocnn_unsup/
 cp icv_emotion_challenge/solution1/autocnn_prediction.m autocnn_unsup/
 
 # Train a model in Matlab and save predictions
-## Set the number of threads equal to the number of physical cores
+## Set the number of threads equal to the number of physical cores (6 in my case)
 export OMP_NUM_THREADS=6
 ## Define the network architecture
-network_arch="32c15-16p-conv1_3"
+network_arch="512c15-16p-conv1_3"
 ## Run main script and write the results to predictions.txt
 $MATLAB -nodisplay -nosplash -nodesktop -nojvm -r "cd autocnn_unsup/experiments; icv('$DATA_DIR','$TRAINING_DIR_dlib','$TRAINING_IMG','$TEST_DIR_dlib','$TEST_IMG','$SUBMISSION_FILE','$network_arch',100); quit" -logfile boris_autocnn_train_$network_arch.log
 
-# Trained model https://www.dropbox.com/s/chxq9g25ww5hpx3/icv_15969_5folds_512c15-16p-conv1_3.mat?dl=0
+# Trained model https://www.dropbox.com/s/chxq9g25ww5hpx3/icv_15969_5folds_512c15-16p-conv1_3.mat?dl=1
 # md5sum: a08d8ac9dbbb736da68a1820924880e9
 # Misclassification: 86.89%
-# To get predictions for some new data using some model:
-# $MATLAB -nodisplay -nosplash -nodesktop -nojvm -r "cd autocnn_unsup/experiments; icv_prediction('$TEST_DIR_dlib', '$TEST_IMG', 'test_results/icv_15969_5folds_512c15-16p-conv1_3.mat', '$SUBMISSION_FILE') 
+# Example how to get predictions for some new data using this model:
+# model="icv_15969_5folds_512c15-16p-conv1_3.mat"
+# $MATLAB -nodisplay -nosplash -nodesktop -nojvm -r "cd autocnn_unsup/experiments; icv_prediction('$TEST_DIR_dlib', '$TEST_IMG', '$model', '$SUBMISSION_FILE') 
