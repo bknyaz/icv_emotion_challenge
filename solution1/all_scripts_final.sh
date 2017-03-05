@@ -6,7 +6,7 @@
 # Ubuntu 16.04 LTS
 # gcc 5.4.0
 # dlib
-# Matlab R2015b
+# Matlab R2016a
 # MatConvNet
 # VLFeat
 # 32GB RAM
@@ -18,8 +18,11 @@
 ## data root folder
 DATA_DIR="/home/boris/Project/data/images/icv_emotions"
 ## folders with all original images
+# The folder with 16012 images
 TRAINING_DIR=$DATA_DIR"/Training"
+# The folder with 7004 images
 TEST_DIR=$DATA_DIR"/Validation"
+# The folder with 5751 images
 FINAL_TEST_DIR=$DATA_DIR"/Test"
 ## images list files
 TRAINING_IMG=$DATA_DIR"/training_new.txt"

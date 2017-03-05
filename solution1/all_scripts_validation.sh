@@ -6,7 +6,7 @@
 # Ubuntu 16.04 LTS
 # gcc 5.4.0
 # dlib
-# Matlab R2015b
+# Matlab R2016a
 # MatConvNet
 # VLFeat
 # 32GB RAM
