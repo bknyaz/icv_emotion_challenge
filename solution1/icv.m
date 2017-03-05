@@ -30,7 +30,9 @@ test_results = autocnn_icv(opts, 'augment', true)
 % average scores from all models
 scores = {};
 for m=1:numel(test_results.scores)
-    scores{m} = test_results.scores{m}{1};
+    for k=1:numel(test_results.scores{m})
+        scores{end+1} = test_results.scores{m}{k};
+    end
 end
 icv_write_submission(mean(cat(3,scores{:}),3), submission_file)
 
