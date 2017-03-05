@@ -36,6 +36,8 @@ TEST_DIR_dlib_no_align=$DATA_DIR"/Validation_dlib_no_align"
 MATLAB="/usr/local/MATLAB/R2016a/bin/matlab"
 #------------------------------
 
+# Once the folders and paths above are set correctly, the rest of the script should be run automatically
+
 # All necessary code, tools and models will be saved in the current directory
 
 #------------------------------
@@ -88,13 +90,18 @@ cp icv_emotion_challenge/solution1/autocnn_prediction.m autocnn_unsup/
 ## Set the number of threads equal to the number of physical cores (6 in my case)
 export OMP_NUM_THREADS=6
 ## Define the network architecture
-network_arch="512c15-16p-conv1_3"
+network_arch="1024c15-12p-conv0"
 ## Run main script and write the results to predictions.txt
-$MATLAB -nodisplay -nosplash -nodesktop -nojvm -r "cd autocnn_unsup/experiments; icv('$DATA_DIR','$TRAINING_DIR_dlib','$TRAINING_IMG','$TEST_DIR_dlib','$TEST_IMG','$SUBMISSION_FILE','$network_arch',100); quit" -logfile boris_autocnn_train_$network_arch.log
+$MATLAB -nodisplay -nosplash -nodesktop -nojvm -r "cd autocnn_unsup/experiments; icv('$DATA_DIR','$TRAINING_DIR_dlib','$TRAINING_IMG','$TEST_DIR_dlib','$TEST_IMG','$SUBMISSION_FILE','$network_arch',25); quit" -logfile boris_autocnn_train_$network_arch.log
 
+# Trained model icv_15969_5folds_1024c15-12p-conv0.mat
+# md5sum: c9b12c8ac6c8ac515dae9f964b64830d
+# Misclassification: 84.06%
+# Example how to get predictions for some new data using this model:
+# model="icv_15969_5folds_1024c15-12p-conv0.mat"
+# $MATLAB -nodisplay -nosplash -nodesktop -nojvm -r "cd autocnn_unsup/experiments; icv_prediction('$TEST_DIR_dlib', '$TEST_IMG', '$model', '$SUBMISSION_FILE') 
+
+# Previous result
 # Trained model https://www.dropbox.com/s/b21orcj0ga8nfpg/icv_15969_5folds_512c15-16p-conv1_3.mat?dl=1
 # md5sum: a08d8ac9dbbb736da68a1820924880e9
 # Misclassification: 86.37%
-# Example how to get predictions for some new data using this model:
-# model="icv_15969_5folds_512c15-16p-conv1_3.mat"
-# $MATLAB -nodisplay -nosplash -nodesktop -nojvm -r "cd autocnn_unsup/experiments; icv_prediction('$TEST_DIR_dlib', '$TEST_IMG', '$model', '$SUBMISSION_FILE') 
