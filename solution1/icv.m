@@ -11,15 +11,16 @@ addpath('../')
 opts.dataDir = data_dir;
 opts.liblinear = liblinear_path;
 opts.n_folds = 5; % 5 models
-opts.PCA_dim = [];
-opts.arch = network_arch; %'512c15-16p-conv1_3';
-opts.norm_coef = 0.25;
+opts.PCA_dim= 50:50:500; % committee of 10 PCA models
+opts.arch = network_arch; %'1024c15-12p-conv0';
+opts.norm_coef = 0.5;
 opts.batch_size = batch_size;
 opts.test_path = '../../'; % save models in the root folder
 
 % fixed SVM parameters found by cross-validation
-opts.SVM_C = 1e-4; 
+opts.SVM_C = 0.000005;
 opts.SVM_B = 0;
+opts.pca_n_samples = 30e3;
 
 opts.data_params = {train_dir,training_img_list,test_dir,test_img_list}
 %% Train a committee
@@ -32,19 +33,5 @@ for m=1:numel(test_results.scores)
     scores{m} = test_results.scores{m}{1};
 end
 icv_write_submission(mean(cat(3,scores{:}),3), submission_file)
-
-% Once the models are trained and saved, they can be used as following
-% load data
-% data_submit = load(fullfile(opts.dataDir,'submit'));
-% data_submit.images = single(data_submit.images)./255  % print submission data
-% % load models
-% test_results = load(test_results.test_file_name)
-% % forward pass and prediction
-% scores = {};
-% for m=1:numel(test_results.scores)
-%     results = autocnn_prediction(data_submit, test_results.net{m}, test_results.opts, test_results.model{m})
-%     scores{m} = results.scores{1};
-% end
-% icv_write_submission(mean(cat(3,scores{:}),3), submission_file)
 
 end

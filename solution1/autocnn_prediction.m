@@ -32,22 +32,20 @@ else
   test_features = forward_pass(data_test.images, net);
 end
 
-%% Dimensionality reduction (PCA)
-if (~isempty(opts.PCA_dim) && max(opts.PCA_dim) > 0 && size(train_features,2) > max(opts.PCA_dim))
-    fprintf('\n-> %s \n', upper('dimensionality reduction'))
-    test_features = pca_zca_whiten(test_features, opts, PCA_matrix, data_mean, L_regul);
-end
-if (~isempty(opts.norm))
-    test_features = feature_scaling(test_features, opts.norm);
-end
-
-
 %% Classification
 fprintf('\n-> %s with %s \n', upper('Prediction'), upper(opts.classifier));
-scores = predict_batches(test_features, repmat(data_test.labels,size(test_features,1)/length(data_test.labels),1), data_test.labels, unique(data_test.labels), model, @predict, opts);
-test_results.scores = zeros(size(scores));
-for i=1:length(model.Label)
-    test_results.scores(:,model.Label(i)+1) = scores(:,i);
+scores = {};
+for j=1:numel(model)
+    test_data_dim = test_features(:,1:opts.PCA_dim(j));
+    if (~isempty(opts.norm))
+        test_data_dim = feature_scaling(test_data_dim, opts.norm);
+    end
+    scores{end+1} = predict_batches(test_data_dim, repmat(data_test.labels,size(test_data_dim,1)/length(data_test.labels),1), data_test.labels, unique(data_test.labels), model{j}, @predict, opts);
+end
+scores_all = mean(cat(3,scores{:}),3);
+test_results.scores = zeros(size(scores_all));
+for i=1:length(model{1}.Label)
+    test_results.scores(:,model{1}.Label(i)+1) = scores_all(:,i);
 end
 [~,idx] = max(test_results.scores,[],2);
 idx = idx-1;

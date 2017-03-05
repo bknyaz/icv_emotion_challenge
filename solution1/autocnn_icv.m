@@ -13,7 +13,7 @@ if (~isfield(opts,'whiten'))
     opts.whiten = true; % whitening is applied
 end
 if (~isfield(opts,'batch_size'))
-    opts.batch_size = 50;
+    opts.batch_size = 25;
 end
 if (~isfield(opts,'rectifier'))
     opts.rectifier = {'relu','abs','abs'};
@@ -22,7 +22,7 @@ if (~isfield(opts,'conv_norm'))
     opts.conv_norm = 'rootsift';
 end
 if (~isfield(opts,'arch'))
-    opts.arch = '512c15-16p-conv1';
+    opts.arch = '1024c15-12p-conv0';
 end
 sample_size = [96,96,3];
 opts.dataset = 'icv';
@@ -40,9 +40,9 @@ if (~isfield(opts,'val') || isempty(opts.val))
   opts.val = false; % true for cross-validation on the training set
 end
 if (isfield(opts,'data_params') && ~isempty(opts.data_params))
-    [data_train, data_test, data_submit] = load_ICV_data(opts, sample_size(1:2), opts.data_params);
+    [data_train, ~, data_submit] = load_ICV_data(opts, sample_size(1:2), opts.data_params);
 else
-    [data_train, data_test, data_submit] = load_ICV_data(opts, sample_size(1:2));
+    [data_train, ~, data_submit] = load_ICV_data(opts, sample_size(1:2));
 end
 
 if (~isfield(opts,'n_folds'))
@@ -58,25 +58,13 @@ if (~isfield(opts,'PCA_dim'))
     if (numel(net.layers) > 1)
         opts.PCA_dim = [40,70,80,120,150,250,300:100:1000];
     else
-        opts.PCA_dim = [30:10:100,120,150:50:250,300:100:600];
+        opts.PCA_dim = 50:50:500;
     end
 end
 
 for model_id = 1:opts.n_folds
     
     opts.fold_id = model_id;
-
-    if model_id == 1
-        % there will be no labeled validation data, so we use all training
-        % data for training and submission data for validation
-        data_train.images = cat(1,data_train.images,data_test.images);
-        data_train.labels = cat(1,data_train.labels,data_test.labels);
-        data_train.users = cat(1,data_train.users,data_test.users);
-        data_submit.labels = zeros(size(data_submit.images,1),1);
-        data_train.unlabeled_images = data_train.images;
-        data_train.unlabeled_images_whitened = data_train.images % print train data
-        opts.n_train = length(data_train.labels);
-    end
     test_results = autocnn_unsup(data_train, data_submit, net, opts);
     
     fprintf('test took %5.3f seconds \n', etime(clock,time_start));
@@ -157,7 +145,6 @@ else
     files_ordered = textscan(fid,'%s','Delimiter','\n');  
     fclose(fid);
     images = {};
-    labels = [];
     users = [];
     for i=1:length(files_ordered{1})
         im = imread(fullfile(test_dir,files_ordered{1}{i}));
@@ -171,11 +158,19 @@ else
     end
     images = cat(4,images{:});
     data_submit.images = reshape(images, [], size(images,4))';
-    data_submit.labels = labels';
     data_submit.users = unique(users)';
     save(fullfile(opts.dataDir,'test_96'),'-struct','data_submit','-v7.3')
 end
+data_submit.labels = zeros(size(data_submit.images,1),1);
 data_submit.images = single(data_submit.images)./255  % print submission data
+
+% there will be no labeled validation data, so we use all training
+% data for training and submission data for validation
+data_train.images = cat(1,data_train.images,data_test.images);
+data_train.labels = cat(1,data_train.labels,data_test.labels);
+data_train.users = cat(1,data_train.users,data_test.users);
+data_train.unlabeled_images = cat(1,data_train.images,data_submit.images);
+data_train.unlabeled_images_whitened = cat(1,data_train.images,data_submit.images) % print train data
 
 end
 

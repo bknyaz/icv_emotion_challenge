@@ -48,8 +48,8 @@ cd dlib/examples; mkdir build; cd build; cmake .. ; cmake --build .
 mkdir $TRAINING_DIR_dlib; mkdir $TRAINING_DIR_dlib_no_align; mkdir $TEST_DIR_dlib; mkdir $TEST_DIR_dlib_no_align
 ## Extract and align training and validation faces in parallel
 ## This will take most of the time in our pipeline (about 3 hours)
-./face_landmark_detection_ex shape_predictor_68_face_landmarks.dat $TRAINING_DIR $TRAINING_DIR_dlib $TRAINING_DIR_dlib_no_align 1280 \
-& ./face_landmark_detection_ex shape_predictor_68_face_landmarks.dat $TEST_DIR $TEST_DIR_dlib $TEST_DIR_dlib_no_align 1280
+./face_landmark_detection_ex ../../../shape_predictor_68_face_landmarks.dat $TRAINING_DIR $TRAINING_DIR_dlib $TRAINING_DIR_dlib_no_align 1280 \
+& ./face_landmark_detection_ex ../../../shape_predictor_68_face_landmarks.dat $TEST_DIR $TEST_DIR_dlib $TEST_DIR_dlib_no_align 1280
 
 cd ../../..
 #------------------------------

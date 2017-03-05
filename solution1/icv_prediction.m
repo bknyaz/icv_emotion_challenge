@@ -7,7 +7,6 @@ fid = fopen(test_img_list);
 files_ordered = textscan(fid,'%s','Delimiter','\n');  
 fclose(fid);
 images = {};
-labels = [];
 users = [];
 for i=1:length(files_ordered{1})
     im = imread(fullfile(test_dir,files_ordered{1}{i}));
@@ -21,12 +20,12 @@ for i=1:length(files_ordered{1})
 end
 images = cat(4,images{:});
 data_submit.images = reshape(images, [], size(images,4))';
-data_submit.labels = labels';
+data_submit.labels = zeros(size(data_submit.images,1),1);
 data_submit.users = unique(users)';
 data_submit.images = single(data_submit.images)./255  % print submission data
 
 scores = {};
-for m=1:numel(test_results.scores)
+for m=1:numel(test_results.scores) % collect SVM scores from all models
     results = autocnn_prediction(data_submit, test_results.net{m}, test_results.opts, test_results.model{m})
     scores{m} = results.scores{1};
 end
