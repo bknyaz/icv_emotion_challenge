@@ -128,8 +128,8 @@ else
     data_test.labels = labels(ismember(users,users_val))';
     data_test.users = users_val';
     assert(size(data_train.images,1)+size(data_test.images,1) == size(images,1))
-    save(fullfile(opts.dataDir,'train_96'),'-struct','data_train','-v7.3')
-    save(fullfile(opts.dataDir,'val_96'),'-struct','data_test','-v7.3')
+%     save(fullfile(opts.dataDir,'train_96'),'-struct','data_train','-v7.3')
+%     save(fullfile(opts.dataDir,'val_96'),'-struct','data_test','-v7.3')
 end
 
 data_train.images = single(data_train.images)./255;
@@ -159,7 +159,7 @@ else
     images = cat(4,images{:});
     data_submit.images = reshape(images, [], size(images,4))';
     data_submit.users = unique(users)';
-    save(fullfile(opts.dataDir,'test_96'),'-struct','data_submit','-v7.3')
+%     save(fullfile(opts.dataDir,'test_96'),'-struct','data_submit','-v7.3')
 end
 data_submit.labels = zeros(size(data_submit.images,1),1);
 data_submit.images = single(data_submit.images)./255  % print submission data

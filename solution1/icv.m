@@ -1,4 +1,4 @@
-function results = icv(data_dir,train_dir,training_img_list,test_dir,test_img_list, submission_file, network_arch, batch_size)
+function results = icv(data_dir, train_dir, training_img_list, test_dir, test_img_list, submission_file, network_arch, batch_size)
 % '$DATA_DIR','$TRAINING_DIR_dlib','$TRAINING_IMG','$TEST_DIR_dlib','$TEST_IMG','$SUBMISSION_FILE'
 results = [];
 opts = [];
