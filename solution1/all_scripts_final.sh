@@ -113,7 +113,7 @@ network_arch="1024c15-12p-conv0"
 ## Run main script and write the results to $SUBMISSION_FILE (predictions.txt)
 $MATLAB -nodisplay -nosplash -nodesktop -nojvm -r "cd autocnn_unsup/experiments; icv('$DATA_DIR','$TRAINING_DIR_dlib_ALL','$TRAINING_IMG_ALL','$FINAL_TEST_DIR_dlib','$FINAL_TEST_IMG','$SUBMISSION_FILE','$network_arch',25); quit" -logfile boris_autocnn_train_$network_arch.log
 
-# Trained model icv_22969_5folds_1024c15-12p-conv0.mat
+# Trained model https://www.dropbox.com/s/s1vt4bl0xncrurx/icv_22969_5folds_1024c15-12p-conv0.mat?dl=1
 # md5sum: d3ffe11c70e21c81aa844d259e578578
 # Example how to get predictions for some new data using this model:
 # model="icv_22969_5folds_1024c15-12p-conv0.mat"
